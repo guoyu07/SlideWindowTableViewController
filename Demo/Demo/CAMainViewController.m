@@ -48,7 +48,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 10;
+    return 15;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -73,10 +73,10 @@
     
     // Use [self addOpenAnimations: closeAnimations: forIndexPath:]
     // for adding extra animations. Example as follow:
-    /*
+
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
-    CGPoint origin = [self.tableView convertPoint:CGPointZero fromView:cell.textLabel];
+    CGPoint origin = [self.tableView.window convertPoint:CGPointZero fromView:cell.textLabel];
     
     UILabel *title = cell.textLabel;
     
@@ -91,7 +91,7 @@
         fakelabel.font = cell.textLabel.font;
         fakelabel.backgroundColor = title.backgroundColor;
         title.alpha = 0;
-        [weakSelf.tableView addSubview:fakelabel];
+        [weakSelf.tableView.window addSubview:fakelabel];
         
         ((CADetailViewController *)detailVC).titleLabel.alpha = 0;
         CGRect targetFrame = ((CADetailViewController *)detailVC).titleLabel.frame;
@@ -111,7 +111,7 @@
         fakelabel.text = title.text;
         fakelabel.font = cell.textLabel.font;
         title.alpha = 0;
-        [weakSelf.tableView addSubview:fakelabel];
+        [weakSelf.tableView.window addSubview:fakelabel];
         
         [UIView animateWithDuration:ANIMATION_DURATION * 2 animations:^{
             fakelabel.frame = frame;
@@ -120,7 +120,7 @@
         }];
         
     } forIndexPath:indexPath];
-    */
+
     
     return detailVC;
 }

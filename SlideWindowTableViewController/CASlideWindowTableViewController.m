@@ -72,8 +72,9 @@
     NSArray *cells = self.tableView.visibleCells;
     self.tableView.scrollEnabled = NO;
     
-    self.topDistance = CGRectGetMinY(selectedCell.frame);
-    self.bottomDistance = CGRectGetHeight(self.tableView.frame) - self.topDistance;
+    CGPoint origin = [self.tableView.window convertPoint:CGPointZero fromView:selectedCell];
+    self.topDistance = origin.y;
+    self.bottomDistance = CGRectGetHeight(self.tableView.window.frame) - self.topDistance;
     
     self.tableView.userInteractionEnabled = NO;
     for (UITableViewCell *cell in cells) {
