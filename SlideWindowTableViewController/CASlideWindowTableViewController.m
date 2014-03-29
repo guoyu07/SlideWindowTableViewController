@@ -59,10 +59,10 @@
     
     UITableViewCell *selectedCell = [self.tableView cellForRowAtIndexPath:indexPath];
     
-    [self addChildViewController:self.detailVC];
-    [self.tableView addSubview:self.detailVC.view];
-    [self.detailVC didMoveToParentViewController:self];
-    self.detailVC.view.alpha = 0;
+//    [self addChildViewController:self.detailVC];
+//    [self.tableView addSubview:self.detailVC.view];
+//    [self.detailVC didMoveToParentViewController:self];
+//    self.detailVC.view.alpha = 0;
     
     // Additional animation
     if (self.animationDict[indexPath] && ((NSMutableDictionary *)self.animationDict[indexPath]).count == 2) {
@@ -91,10 +91,19 @@
                 cell.frame = frame;
             } completion:^(BOOL finished) {
                 if (cell == selectedCell) {
+                    self.detailVC.view.alpha = 0;
+                    if (self.navigationController) {
+                        [self.navigationController pushViewController:self.detailVC animated:NO];
+                    } else {
+                        [self presentViewController:self.detailVC animated:NO completion:^{
+                            
+                        }];
+                    }
+                    
                     [UIView animateWithDuration:ANIMATION_DURATION animations:^{
                         self.detailVC.view.alpha = 1;
                     } completion:^(BOOL finished) {
-                        self.tableView.userInteractionEnabled = YES;
+//                        self.tableView.userInteractionEnabled = YES;
                     }];
                 }
             }];
@@ -111,11 +120,15 @@
     
     [UIView animateWithDuration:ANIMATION_DURATION animations:^{
         self.detailVC.view.alpha = 0;
-        
+        if (self.navigationController) {
+            [self.navigationController popViewControllerAnimated:NO];
+        } else {
+            [self.detailVC.presentingViewController dismissViewControllerAnimated:NO completion:nil];
+        }
         
     } completion:^(BOOL finished) {
-        [self.detailVC.view removeFromSuperview];
-        [self.detailVC removeFromParentViewController];
+//        [self.detailVC.view removeFromSuperview];
+//        [self.detailVC removeFromParentViewController];
         
         NSArray *cells = self.tableView.visibleCells;
         self.tableView.userInteractionEnabled = NO;

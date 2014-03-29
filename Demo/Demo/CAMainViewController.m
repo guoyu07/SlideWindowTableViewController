@@ -91,12 +91,17 @@
         fakelabel.font = cell.textLabel.font;
         fakelabel.backgroundColor = title.backgroundColor;
         title.alpha = 0;
-        [weakSelf.tableView.window addSubview:fakelabel];
+        if (weakSelf.navigationController) {
+            [weakSelf.navigationController.view addSubview:fakelabel];
+        } else {
+            [weakSelf.tableView.window addSubview:fakelabel];
+        }
+        
         
         ((CADetailViewController *)detailVC).titleLabel.alpha = 0;
         CGRect targetFrame = ((CADetailViewController *)detailVC).titleLabel.frame;
         
-        [UIView animateWithDuration:ANIMATION_DURATION * 2 animations:^{
+        [UIView animateWithDuration:4 animations:^{
             fakelabel.frame = targetFrame;
         } completion:^(BOOL finished) {
             [fakelabel removeFromSuperview];
