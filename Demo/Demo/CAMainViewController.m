@@ -101,7 +101,7 @@
         ((CADetailViewController *)detailVC).titleLabel.alpha = 0;
         CGRect targetFrame = ((CADetailViewController *)detailVC).titleLabel.frame;
         
-        [UIView animateWithDuration:4 animations:^{
+        [UIView animateWithDuration:1. animations:^{
             fakelabel.frame = targetFrame;
         } completion:^(BOOL finished) {
             [fakelabel removeFromSuperview];
